@@ -1,0 +1,10 @@
+require "gitlab/ci/lint"
+
+infile = ARGV.shift
+
+unless infile
+  $stderr.puts("Usage #{$0} <path/to/.gitlab-ci.yml>")
+  exit 1
+end
+
+Gitlab::Ci::Lint.validate(infile)

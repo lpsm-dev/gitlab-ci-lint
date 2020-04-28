@@ -1,0 +1,30 @@
+lib = File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "gitlab/ci/lint/version"
+
+Gem::Specification.new do |spec|
+  spec.name           = "gitlab-ci-lint"
+  spec.version        = Gitlab::Ci::Lint::VERSION
+  spec.authors        = ["Lucca Pessoa da Silva Matos"]
+  spec.email          = "luccapsm@gmail.com"
+  spec.summary        = %q{Validate your gitlab-ci.yml files}
+  spec.description    = "I will choose Freewill!"
+  spec.homepage       = "https://github.com/lpmatos/gitlab-ci-lint"
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = spec.homepage
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  spec.files          = `git ls-files -z`.split("\x0").reject do |file|
+    file.match(%r{^(test|spec|features)/})
+  end
+  spec.bindir        = "bin"
+  spec.executables   = spec.files.grep(%r{^#{spec.bindir}/}) { |file| File.basename(file) }
+  spec.require_paths = ["lib"]
+  spec.add_development_dependency "bundler", "~> 1.16"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "httparty", "~> 0.18.0"
+  spec.add_development_dependency "OptionParser", "~> 0.5.1"
+  spec.add_development_dependency "yaml", "~> 0.1.0"
+  spec.add_development_dependency "colorize", "~> 0.8.1"
+end

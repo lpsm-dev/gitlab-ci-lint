@@ -1,10 +1,13 @@
-# Rakefile.
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
 
 # Base description
 desc "Default description."
 
+RSpec::Core::RakeTask.new(:spec)
+
 # Declare a Default Task.
-task :default => :helper
+task :default => :spec
 
 # Create a Default Task.
 task :helper do

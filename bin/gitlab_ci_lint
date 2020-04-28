@@ -1,7 +1,11 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "/../lib"))
 require "gitlab/ci/lint"
 
-if ARGV.empty?
-  STDERR.puts "You need to provide a URL"
-  STDERR.puts "USAGE: #{$PROGRAM_NAME} [options] [url]"
+infile = ARGV.shift
+
+unless infile
+  $stderr.puts("Usage #{$0} <path/to/.gitlab-ci.yml>")
+  exit 1
 end
+
+Gitlab::Ci::Lint.validate(infile)

@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors        = ["Lucca Pessoa da Silva Matos"]
   spec.email          = "luccapsm@gmail.com"
   spec.summary        = %q{Validate your gitlab-ci.yml files}
-  spec.description    = "I will choose Freewill!"
+  spec.description    = "Gitlab CI Lint"
   spec.homepage       = "https://github.com/lpmatos/gitlab-ci-lint"
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   spec.bindir        = "bin"
   spec.require_paths = ["lib"]
+  spec.license       = 'MIT'
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"

@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "gitlab/ci/lint/version"
@@ -5,6 +6,7 @@ require "gitlab/ci/lint/version"
 Gem::Specification.new do |spec|
   spec.name           = "gitlab-ci-lint"
   spec.version        = Gitlab::Ci::Lint::VERSION
+  spec.platform       = Gem::Platform::RUBY
   spec.authors        = ["Lucca Pessoa da Silva Matos"]
   spec.email          = "luccapsm@gmail.com"
   spec.summary        = %q{Validate your gitlab-ci.yml files}
@@ -14,11 +16,11 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = spec.homepage
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files          = `git ls-files -z`.split("\x0").reject do |file|
-    file.match(%r{^(test|spec|features)/})
-  end
+  all_files = `git ls-files`.split("\n")
+  test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
+  spec.files         = all_files - test_files
+  spec.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   spec.bindir        = "bin"
-  spec.executables   = spec.files.grep(%r{^#{spec.bindir}/}) { |file| File.basename(file) }
   spec.require_paths = ["lib"]
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"

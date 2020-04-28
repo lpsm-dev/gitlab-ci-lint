@@ -1,13 +1,16 @@
 require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+
+begin
+  require "rspec/core/rake_task"
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+end
 
 # Base description
 desc "Default description."
 
-RSpec::Core::RakeTask.new(:spec)
-
 # Declare a Default Task.
-task :default => :spec
+task default: [:spec, :helper]
 
 # Create a Default Task.
 task :helper do

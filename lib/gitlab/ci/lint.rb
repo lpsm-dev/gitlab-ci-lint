@@ -2,16 +2,15 @@ module Gitlab
   module Ci
     module Lint
       require File.expand_path("lint/yml", File.dirname(__FILE__))
-      require File.expand_path("lint/configuration", File.dirname(__FILE__))
       require File.expand_path("lint/log", File.dirname(__FILE__))
       require File.expand_path("lint/system", File.dirname(__FILE__))
       require File.expand_path("lint/client", File.dirname(__FILE__))
 
       def self.validate values, configuration, options
         system = Gitlab::Ci::System.new
-        system.check_file(values, "Error: You must specify the values.yml file")
+        system.file_exist?(values, "Error: You must specify the values.yml file")
         values = File.absolute_path(values)
-        system.check_if_file_is_readable(values, "Error: Could not find file at '#{values}'")
+        system.file_is_readable?(values, "Error: Could not find file at '#{values}'")
         yml_reader = Gitlab::Ci::YMLReader.new(values)
         content = yml_reader.get_content
         gitlab, log = content["gitlab"], content["log"]
@@ -43,7 +42,7 @@ module Gitlab
 
         $stdout.puts("OK: #{values}")
 
-        client = Gitlab::Ci::Client.new
+        client = GitLab::CI::Lint::Client.new
 
         result = client.gitlab_ci_lint(gitlab_endpoint, gitlab_ci_file)
 

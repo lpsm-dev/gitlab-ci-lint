@@ -37,16 +37,19 @@ module GitLab
           string = """
 
         Command Line Helper to the Program - #{@program_name}
-        Usage Exemple: ruby example.rb [options]
-        Options:
-        -h          | --helper                GITLAB CI LINT HELPER.
-        -e          | --endpoint              GITLAB ENDPOINT.
-        -t          | --token                 GITLAB TOKEN.
-        -f          | --file                  GITLAB CI FILE.
-        -v          | --values                GITLAB CI LINT VALUES FILE.
-        -l          | --log                   GITLAB CI LINT LOG FILE.
-        --verbose   |                         GITLAB CI LINT VERBOSE.
-        --version   |                         GITLAB CI LINT VERSION.
+        Usage Exemple: ruby example.rb [global options] [command [command options]] [PATH]
+
+        Global options:
+        -h          | --helper                show GitLab CI help.
+        -e          | --endpoint              root URL of the GitLab instance to use API (default: 'https://gitlab.com')
+        -f          | --file                  FILE is the relative or absolute path to the gitlab-ci file
+        -d          | --directory             DIR is the directory from where to search for gitlab-ci file and git repository (default: '.')
+        -t          | --timeout               timeout in second after which http request to GitLab API will timeout (and the program will fails) (default: 5)
+        -n          | --no-color              don't color output. By defaults the output is colorized if a compatible terminal is detected.
+        -v          | --values                Values file with information.
+        -l          | --log                   LOG is the log file path.
+        -v          | --verbose               verbose mode.
+        -V          | --version               print the version information.
         """
           puts string
           exit 1

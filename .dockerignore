@@ -1,0 +1,12 @@
+Gemfile.lock
+.env
+.dockerignore
+.editorconfig
+.gitignore
+.rspec_status
+docker-compose.yml
+Dockerfile
+file.log
+*.gem
+LICENSE
+*.md

@@ -23,9 +23,6 @@ Gem::Specification.new do |spec|
   spec.bindir        = "bin"
   spec.require_paths = ["lib"]
   spec.license       = 'MIT'
-  spec.add_development_dependency "bundler", "~> 1.16"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "httparty", "~> 0.18.0"
   spec.add_development_dependency "OptionParser", "~> 0.5.1"
   spec.add_development_dependency "yaml", "~> 0.1.0"

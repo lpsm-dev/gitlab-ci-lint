@@ -11,5 +11,4 @@ group :development do
   gem "httparty"
   gem "OptionParser"
   gem "yaml"
-  gem "colorize"
 end

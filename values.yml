@@ -6,3 +6,6 @@
 gitlab:
   endpoint: "1"
   token: "1"
+  file: ".gitlab-ci.yml"
+log:
+  file: "file.log"

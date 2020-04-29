@@ -1,11 +1,10 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "/../lib"))
+
 require "gitlab/ci/lint"
+require "gitlab/ci/lint/arguments"
+require "gitlab/ci/lint/configuration"
 
-infile = ARGV.shift
+arguments = Gitlab::Ci::Arguments.new
+configuration = Gitlab::Ci::Configuration.new
 
-unless infile
-  $stderr.puts("Usage #{$0} <path/to/.gitlab-ci.yml>")
-  exit 1
-end
-
-Gitlab::Ci::Lint.validate(infile)
+Gitlab::Ci::Lint.validate("values.yml", configuration, arguments)

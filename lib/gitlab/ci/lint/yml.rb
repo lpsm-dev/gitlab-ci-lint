@@ -2,11 +2,13 @@ require "yaml"
 
 module Gitlab
   module Ci
-    class ReaderYMLFile
+    class YMLReader
       attr_reader :file
+
       def initialize file
         @file = file
       end
+
       def get_content
         begin
           return eval(YAML.load_file(@file).inspect)

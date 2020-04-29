@@ -1,0 +1,65 @@
+# =============================================================================
+# JOB DEPLOY
+# =============================================================================
+
+# FEATURE
+job:deploy-feature:
+  extends:
+    - .base-deploy
+    - .only:changes-feature
+    - .default:tags-develop
+  variables:
+    GIT_STRATEGY: fetch
+  before_script:
+    - echo -n ${KUBECONFIG_CLUSTER_DEVELOP} | base64 -d > ${HOME}/.kube/config
+  script:
+    - bash /root/deploy.sh -n ${NAMESPACE_DEVELOP}
+
+# DEVELOP
+job:deploy-develop:
+  extends:
+    - .base-deploy
+    - .only:changes-develop
+    - .default:tags-develop
+  variables:
+    GIT_STRATEGY: fetch
+  before_script:
+    - echo -n ${KUBECONFIG_CLUSTER_DEVELOP} | base64 -d > ${HOME}/.kube/config
+  script:
+    - bash /root/deploy.sh -n ${NAMESPACE_DEVELOP}
+
+# SANDBOX
+job:deploy-sandbox:
+  extends:
+    - .base-deploy
+    - .only:changes-sandbox
+    - .default:tags-sandbox
+  before_script:
+    - echo -n ${KUBECONFIG_CLUSTER_SANDBOX} | base64 -d > ${HOME}/.kube/config
+  script:
+    - kubectl set image deployment/${CI_PROJECT_PATH_SLUG} ${CI_PROJECT_PATH_SLUG}=${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA} -n ${NAMESPACE_SANDBOX}
+    - kubectl get po -n ${NAMESPACE_SANDBOX}
+
+# STAGE
+job:deploy-stage:
+  extends:
+    - .base-deploy
+    - .only:changes-stage
+    - .default:tags-stage
+  before_script:
+    - echo -n ${KUBECONFIG_CLUSTER_STAGE} | base64 -d > ${HOME}/.kube/config
+  script:
+    - kubectl set image deployment/${CI_PROJECT_PATH_SLUG} ${CI_PROJECT_PATH_SLUG}=${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA} -n ${NAMESPACE_STAGE}
+    - kubectl get po -n ${NAMESPACE_STAGE}
+
+# MASTER
+job:deploy-master:
+  extends:
+    - .base-deploy
+    - .only:changes-master
+    - .default:tags-prod
+  before_script:
+    - echo -n ${KUBECONFIG_CLUSTER_PROD} | base64 -d > ${HOME}/.kube/config
+  script:
+    - kubectl set image deployment/${CI_PROJECT_PATH_SLUG} ${CI_PROJECT_PATH_SLUG}=${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA} -n ${NAMESPACE_PROD}
+    - kubectl get po -n ${NAMESPACE_PROD}

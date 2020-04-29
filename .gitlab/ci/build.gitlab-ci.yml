@@ -1,0 +1,65 @@
+# =============================================================================
+# JOB BUILD
+# =============================================================================
+
+# FEATURE
+job:build-feature:
+  extends: 
+    - .base-build
+    - .only:changes-feature
+    - .default:tags-develop
+  script:
+    - docker build --no-cache ${BUILD_ARG} -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} -f Dockerfile .
+    - docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}-${CI_COMMIT_SHORT_SHA}
+
+# DEVELOP
+job:build-develop:
+  extends: 
+    - .base-build
+    - .only:changes-develop
+    - .default:tags-develop
+  script:
+    - docker build --no-cache ${BUILD_ARG} -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} -f Dockerfile .
+    - docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+
+# SANDBOX
+job:build-sandbox:
+  extends: 
+    - .base-build
+    - .only:changes-sandbox
+    - .default:tags-sandbox
+  script:
+    - docker build --no-cache ${BUILD_ARG} -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} -f Dockerfile .
+    - docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+
+# STAGE
+job:build-stage:
+  extends: 
+    - .base-build
+    - .only:changes-stage
+    - .default:tags-stage
+  script:
+    - docker build --no-cache ${BUILD_ARG} -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} -f Dockerfile .
+    - docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+
+# MASTER
+job:build-master:
+  extends: 
+    - .base-build
+    - .only:changes-master
+    - .default:tags-prod
+  script:
+    - docker build --no-cache ${BUILD_ARG} -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} -f Dockerfile .
+    - docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker tag ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG} ${CI_REGISTRY_IMAGE}:latest
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+    - docker push ${CI_REGISTRY_IMAGE}:latest

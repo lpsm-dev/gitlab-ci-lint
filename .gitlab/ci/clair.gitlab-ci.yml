@@ -1,0 +1,48 @@
+# =============================================================================
+# JOB SCANNING
+# =============================================================================
+
+# FEATURE
+job:scanning-feature:
+  extends:
+    - .base-scanning
+    - .only:changes-feature
+    - .default:tags-develop
+  script:
+    - ./clair-scanner -c http://$(hostname):6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+
+# DEVELOP
+job:scanning-develop:
+  extends:
+    - .base-scanning
+    - .only:changes-develop
+    - .default:tags-develop
+  script:
+    - ./clair-scanner -c http://$(hostname):6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+
+# SANDBOX
+job:scanning-sandbox:
+  extends:
+    - .base-scanning
+    - .only:changes-sandbox
+    - .default:tags-sandbox
+  script:
+    - ./clair-scanner -c http://$(hostname):6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+
+# STAGE
+job:scanning-stage:
+  extends:
+    - .base-scanning
+    - .only:changes-stage
+    - .default:tags-stage
+  script:
+    - ./clair-scanner -c http://$(hostname):6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}
+
+# MASTER
+job:scanning-master:
+  extends:
+    - .base-scanning
+    - .only:changes-master
+    - .default:tags-prod
+  script:
+    - ./clair-scanner -c http://$(hostname):6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}

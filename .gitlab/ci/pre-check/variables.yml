@@ -1,0 +1,8 @@
+# =============================================================================
+# JOB CHECK GITLAB VARIABLES
+# =============================================================================
+
+job:check-gitlab-variables:
+  stage: .pre
+  script:
+    - echo "Check GitLab Variables."

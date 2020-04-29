@@ -11,27 +11,35 @@ version: "3.7"
 services:
 
 # =============================================================================
-# NOTIFICATIONS
+# GITLAB CI LINT
 # =============================================================================
 
-  notifications:
+  gitlab-ci-lint:
     container_name: ${CONTAINER_NAME}
     env_file: ./.env
     build:
       context: ./${PATH_DOCKERFILE}
       dockerfile: Dockerfile
+    entrypoint: >
+      /bin/sh -c "
+        set -e
+        ruby ./bin/gitlab_ci_lint
+        /bin/bash || exit 0
+      "
     restart: unless-stopped
+    stdin_open: true
+    tty: true
     logging:
       driver: "json-file"
       options:
         max-size: "500k"
         max-file: "20"
     networks:
-      - notifications
+      - gitlab-ci-lint
 
 # =============================================================================
 # NETWORKS
 # =============================================================================
 
 networks:
-  notifications:
+  gitlab-ci-lint:

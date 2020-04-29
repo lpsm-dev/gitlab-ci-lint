@@ -15,23 +15,6 @@ default:
   timeout: 1h 30m
 
 # ==============================================================================
-# INCLUDE TEMPLATES
-# ==============================================================================
-
-include:
-  - local: "/.gitlab/ci/pre-check/structure.yml"
-
-  - local: "/.gitlab/ci/pre-check/variables.yml"
-
-  - local: "/.gitlab/ci/global.gitlab-ci.yml"
-
-  - local: "/.gitlab/ci/build.gitlab-ci.yml"
-
-  - local: "/.gitlab/ci/base.gitlab-ci.yml"
-
-  - local: "/.gitlab/ci/rules.gitlab-ci.yml"
-
-# ==============================================================================
 # WORKFLOW RULES
 # ==============================================================================
 

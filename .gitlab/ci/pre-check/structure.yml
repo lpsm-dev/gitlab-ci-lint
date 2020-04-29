@@ -1,8 +1,0 @@
-# =============================================================================
-# JOB CHECK PROJECT STRUCTURE
-# =============================================================================
-
-job:check-project-structure:
-  stage: .pre
-  script:
-    - echo "Check Project Structure."

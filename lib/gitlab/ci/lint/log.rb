@@ -5,7 +5,6 @@ require_relative "./colors.rb"
 module Gitlab
   module Ci
     class MultiIO
-
       def initialize(*targets)
         @targets = targets
       end
@@ -21,9 +20,7 @@ module Gitlab
 
     class Log < Colors
       include Singleton
-
       attr_accessor :logger
-
       def initialize log_file="./file.log"
         @logger = Logger.new MultiIO.new(STDOUT,
           File.open(File.exist?(log_file) ? log_file : "./file.log", "a"))

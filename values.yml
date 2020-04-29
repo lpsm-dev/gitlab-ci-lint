@@ -4,8 +4,8 @@
 
 ---
 gitlab:
-  endpoint: "1"
-  token: "1"
+  endpoint: "https://gitlab.com/api/v4/ci/lint"
+  token: "9q41a8mmjAs4zjxmY6sm"
   file: ".gitlab-ci.yml"
 log:
   file: "file.log"

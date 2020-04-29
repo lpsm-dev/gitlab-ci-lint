@@ -4,49 +4,54 @@ module Gitlab
       require File.expand_path("lint/yml", File.dirname(__FILE__))
       require File.expand_path("lint/configuration", File.dirname(__FILE__))
       require File.expand_path("lint/log", File.dirname(__FILE__))
+      require File.expand_path("lint/system", File.dirname(__FILE__))
       require File.expand_path("lint/client", File.dirname(__FILE__))
 
-      def self.check_file file
-        unless file
-          $stderr.puts('Error: You must specify the path to a .gitlab-ci.yml')
-          return 1
-        end
-      end
+      def self.validate values, configuration, options
+        system = Gitlab::Ci::System.new
+        system.check_file(values, "Error: You must specify the values.yml file")
+        values = File.absolute_path(values)
+        system.check_if_file_is_readable(values, "Error: Could not find file at '#{values}'")
+        yml_reader = Gitlab::Ci::YMLReader.new(values)
+        content = yml_reader.get_content
+        gitlab, log = content["gitlab"], content["log"]
 
-      def self.validate gitlab_ci_config, configuration, arguments
-        check_file(gitlab_ci_config)
-        gitlab_ci_config = File.absolute_path(gitlab_ci_config)
-        unless File.readable?(gitlab_ci_config)
-          $stderr.puts("Error: Could not find file at '#{gitlab_ci_config}'")
-          return 1
-        end
-        begin
-          logger = Gitlab::Ci::Log.instance
-          yml_reader = Gitlab::Ci::YMLReader.new(gitlab_ci_config)
-          options = arguments.command_line_parser()
-          values = yml_reader.get_content
-          gitlab = values["gitlab"]
+        log_file = options["log"] ?
+            options["log"] : ((!log["file"].to_s.empty? && !log["file"].nil?) ?
+            log["file"] : configuration.log_file)
 
-          gitlab_endpoint = options["endpoint"] ?
+        logger = Gitlab::Ci::Log.instance
+
+        gitlab_endpoint = options["endpoint"] ?
             options["endpoint"] : ((!gitlab["endpoint"].to_s.empty? && !gitlab["endpoint"].nil?) ?
             gitlab["endpoint"] : configuration.gitlab_endpoint)
 
-          gitlab_token = options["token"] ?
+        gitlab_token = options["token"] ?
             options["token"] : ((!gitlab["token"].to_s.empty? && !gitlab["token"].nil?) ?
             gitlab["token"] : configuration.gitlab_token)
 
-          logger.info("Starting - 1.0.0...")
+        gitlab_ci_file = options["file"] ?
+            options["file"] : ((!gitlab["file"].to_s.empty? && !gitlab["file"].nil?) ?
+            gitlab["file"] : configuration.gitlab_ci_file)
 
-          puts "\nEndpoint: #{gitlab_endpoint}"
-          puts "Token: #{gitlab_token}\n"
-        rescue StandardError => e
-          $stderr.puts("Invalid: #{gitlab_ci_config}")
-          $stderr.puts("  * #{e}")
-          return 1
-        end
-        $stdout.puts("OK: #{gitlab_ci_config}")
+        logger.info("Starting - 1.0.0...")
+
+        puts "\nGitLab Endpoint: #{gitlab_endpoint}"
+        puts "GitLab Token: #{gitlab_token}"
+        puts "GitLab CI File: #{gitlab_ci_file}"
+        puts "Log File: #{log_file}\n"
+
+        $stdout.puts("OK: #{values}")
+
+        client = Gitlab::Ci::Client.new
+
+        result = client.gitlab_ci_lint(gitlab_endpoint, gitlab_ci_file)
+
+        puts "#{result}"
+
         return 0
       end
+
     end
   end
 end

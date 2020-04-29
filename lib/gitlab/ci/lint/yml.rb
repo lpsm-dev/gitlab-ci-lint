@@ -4,7 +4,6 @@ module Gitlab
   module Ci
     class YMLReader
       attr_reader :file
-
       def initialize file
         @file = file
       end

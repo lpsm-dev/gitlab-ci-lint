@@ -1,0 +1,8 @@
+stages: [ "build" ]
+
+job:build:
+  image: alpine
+  allow_failure: false
+  stage: "build"
+  script:
+    - echo "Hello World!"

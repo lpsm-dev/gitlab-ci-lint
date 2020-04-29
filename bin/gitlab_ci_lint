@@ -5,6 +5,12 @@ require "gitlab/ci/lint/arguments"
 require "gitlab/ci/lint/configuration"
 
 arguments = Gitlab::Ci::Arguments.new
+options = arguments.command_line_parser()
+
 configuration = Gitlab::Ci::Configuration.new
 
-Gitlab::Ci::Lint.validate("values.yml", configuration, arguments)
+values = options["values"] ?
+  options["values"] : (configuration.values ?
+  configuration.values : "values.yml")
+
+Gitlab::Ci::Lint.validate(values, configuration, options)

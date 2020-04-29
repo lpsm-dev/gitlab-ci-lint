@@ -1,28 +1,26 @@
 require "httparty"
-require "yaml"
 require "json"
+require_relative "./yml.rb"
 
 module GitLab
   module CI
     module Lint
       class Client
-
-        def valid_json? json
-          begin
-            JSON.parse(json)
-            return true
-          rescue
-            return false
-          end
-        end
-
-        def gitlab_ci_lint url, content
+        def get_gitlab_ci_lint url, content
           begin
             if url.kind_of? String
-                content = JSON.pretty_generate(YAML.load(File.read(content)))
-                if valid_json?(content)
+                content = GitLab::CI::Lint::YMLReader.new(content).get_json_content()
+                if content
                   request = HTTParty.post(url, :body => { content: content }.to_json, :headers => { "Content-Type" => "application/json" })
-                  puts request.code, request.body
+                  if request.code == 200
+                    return JSON.parse(request.body)
+                  else
+                    puts "Error - Bad Request #{request.code}"
+                    exit
+                  end
+                else
+                  puts "Error - No Content..."
+                  exit
                 end
             end
           rescue => error

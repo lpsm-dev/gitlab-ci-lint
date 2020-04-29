@@ -12,21 +12,24 @@ LABEL maintainer="Lucca Pessoa da Silva Matos - luccapsm@gmail.com" \
 
 ENV HOME=/usr/src/code
 
-RUN set -ex && apk update && \
-    apk add --no-cache --update build-base make gcc git
+RUN set -ex && apk update
+
+RUN apk add --no-cache --update \
+      build-base \
+      make \
+      gcc \
+      git \
+      bash
 
 RUN mkdir -p /var/log && touch /var/log/file.log
 
 WORKDIR ${HOME}
 
-RUN gem install rake bundle rspec
+RUN gem install bundle
 
 COPY [ ".", "." ]
 
-RUN bundle install
+RUN bundle install && bundle exec rake && \
+    chmod +x ./bin/gitlab_ci_lint
 
-RUN bundle exec rake
-
-ENTRYPOINT []
-
-CMD []
+CMD [ "ruby", "/bin/gitlab_ci_lint", "-h" ]

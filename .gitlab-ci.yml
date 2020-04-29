@@ -6,7 +6,3 @@ job:build:
   stage: "build"
   script:
     - echo "Hello World!"
-
-jobs:other:
-  script:
-    - echo "oi"

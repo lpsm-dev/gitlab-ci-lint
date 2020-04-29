@@ -1,5 +1,13 @@
 # GitLab CI Linter
 
+## Gem Steps
+
+```bash
+gem build .\gitlab.gemspec
+gem install .\gitlab-ci-lint-0.1.2.gem
+gem push .\gitlab-ci-lint-0.1.2.gem
+```
+
 ## 🎒 How to contribute
 
 1. Make a **Fork**.

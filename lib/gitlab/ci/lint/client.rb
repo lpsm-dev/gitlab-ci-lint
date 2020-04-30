@@ -8,15 +8,11 @@ module GitLab
       class Client
         include HTTParty
 
-        def initialize
-          @headers = { "Content-Type" => "application/json", "Private-Token" => "uNNACNQdxg1iSnieM2nG" }
-        end
-
-        def post url, content
+        def post url, content, headers={ "Content-Type" => "application/json"}, timeout=10
           begin
             if content = GitLab::CI::Lint::YMLReader.new(content).get_json_content()
               body = { content: content }.to_json
-              request = self.class.post(url, :body => body, :headers => @headers)
+              request = self.class.post(url, :body => body, :headers => headers, :timeout => timeout)
               if request.code == 200
                 puts "\nSuccessful request!"
                 return JSON.parse(request.body)

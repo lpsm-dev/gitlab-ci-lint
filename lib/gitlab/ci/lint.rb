@@ -27,13 +27,23 @@ module Gitlab
             options["endpoint"] : ((!gitlab["endpoint"].to_s.empty? && !gitlab["endpoint"].nil?) ?
             gitlab["endpoint"] : configuration.gitlab_endpoint)
 
+        gitlab_token = options["token"] ?
+            options["token"] : ((!gitlab["token"].to_s.empty? && !gitlab["token"].nil?) ?
+            gitlab["token"] : configuration.gitlab_token)
+
+        timeout = options["timeout"] ?
+            options["timeout"] : ((!gitlab["timeout"].to_s.empty? && !gitlab["timeout"].nil?) ?
+            gitlab["timeout"] : configuration.timeout)
+
         gitlab_ci_file = options["file"] ?
             options["file"] : ((!gitlab["file"].to_s.empty? && !gitlab["file"].nil?) ?
             gitlab["file"] : configuration.gitlab_ci_file)
 
         logger.info("Starting GitLab CI YML Validation...")
 
-        actions.validate_gitlab_ci_yml(gitlab_endpoint, gitlab_ci_file)
+        headers = gitlab_token ? { "Content-Type" => "application/json", "Private-Token" => gitlab_token } : { "Content-Type" => "application/json"}
+
+        actions.validate_gitlab_ci_yml(gitlab_endpoint, gitlab_ci_file, headers, timeout)
 
         return 0
       end

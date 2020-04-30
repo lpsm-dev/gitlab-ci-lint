@@ -23,13 +23,13 @@ module GitLab
             opts.on("-e", "--endpoint", "GitLab Endpoint") { |value| @options[:endpoint] = value }
             opts.on("-t", "--token", "GitLab Token") { |value| @options[:token] = value }
             opts.on("-f", "--file", "GitLab CI File") { |value| @options[:file] = value }
-            opts.on("-d", "--directory", "GitLab CI Directory") { |value| @options[:file] = value }
-            opts.on("-T", "--timeout", "Request Timeout") { |value| @options[:file] = value }
-            opts.on("-n", "--no-color", "Color Usage") { |value| @options[:file] = value }
+            opts.on("-d", "--directory", "GitLab CI Directory") { |value| @options[:directory] = value }
+            opts.on("-T", "--timeout", "Request Timeout") { |value| @options[:timeout] = value }
+            opts.on("-n", "--no-color", "Color Usage") { |value| @options[:nocolor] = value }
             opts.on("-v", "--values", "Values File") { |value| @options[:values] = value }
             opts.on("-l", "--log", "Log File") { |value| @options[:log] = value }
             opts.on("--verbose", "If set, print verbose output") { |value| @options[:verbose] = true }
-            opts.on("--version", "Show GitLab CI Lint Version") { |value| @options[:help] = version() }
+            opts.on("--version", "Show GitLab CI Lint Version") { |value| @options[:version] = version() }
           end.parse!
           return @options
         end

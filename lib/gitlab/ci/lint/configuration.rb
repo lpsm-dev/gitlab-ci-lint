@@ -3,11 +3,12 @@ module GitLab
     module Lint
       class Configuration
         attr_reader :gitlab_endpoint, :gitlab_token, :gitlab_ci_file,
-                    :values, :log_file
+                    :timeout, :values, :log_file
         def initialize
           @gitlab_endpoint = ENV["GITLAB_ENDPOINT"]
           @gitlab_token = ENV["GITLAB_TOKEN"]
           @gitlab_ci_file = ENV["GITLAB_CI_FILE"]
+          @timeout = ENV["TIMEOUT"]
           @values = ENV["VALUES"]
           @log_file = ENV["LOG_FILE"]
         end
@@ -17,6 +18,7 @@ module GitLab
             "gitlab_endpoint" => @gitlab_endpoint,
             "gitlab_token" => @gitlab_token,
             "gitlab_ci_file" => @gitlab_ci_file,
+            "timeout" => @timeout,
             "values" => @values,
             "log_file" => @log_file
           }

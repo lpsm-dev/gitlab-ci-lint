@@ -12,7 +12,7 @@ module GitLab
           begin
             if content = GitLab::CI::Lint::YMLReader.new(content).get_json_content()
               body = { content: content }.to_json
-              request = self.class.post(url, :body => body, :headers => headers, :timeout => timeout)
+              request = self.class.post(url, :body => body, :headers => headers)
               if request.code == 200
                 puts "\nSuccessful request!"
                 return JSON.parse(request.body)

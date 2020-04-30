@@ -7,7 +7,7 @@ module GitLab
       class Actions < GitLab::CI::Lint::Client
 
         def validate_gitlab_ci_yml url, content, headers, timeout
-          result = post(url, headers, timeout, content)
+          result = post(url, content, headers, timeout)
           message = GitLab::CI::Lint::Serializer.new(result)
           if result["status"] == "valid"
             message.success()

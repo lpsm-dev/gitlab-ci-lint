@@ -41,7 +41,7 @@ module Gitlab
 
         logger.info("Starting GitLab CI YML Validation...")
 
-        headers = gitlab_token ? { "Content-Type" => "application/json", "Private-Token" => gitlab_token } : { "Content-Type" => "application/json"}
+        headers = gitlab_token ? { "Content-Type" => "application/json", "Private-Token" => gitlab_token } : { "Content-Type" => "application/json" }
 
         actions.validate_gitlab_ci_yml(gitlab_endpoint, gitlab_ci_file, headers, timeout)
 

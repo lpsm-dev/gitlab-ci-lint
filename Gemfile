@@ -12,4 +12,5 @@ group :development do
   gem "OptionParser"
   gem "yaml"
   gem "colorize"
+  gem "pry"
 end

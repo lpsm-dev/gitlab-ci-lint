@@ -1,11 +1,11 @@
+require "gitlab/ci/lint/yml"
+require "gitlab/ci/lint/log"
+require "gitlab/ci/lint/system"
+require "gitlab/ci/lint/actions"
+
 module Gitlab
   module Ci
     module Lint
-      require File.expand_path("lint/yml", File.dirname(__FILE__))
-      require File.expand_path("lint/log", File.dirname(__FILE__))
-      require File.expand_path("lint/system", File.dirname(__FILE__))
-      require File.expand_path("lint/actions", File.dirname(__FILE__))
-
       def self.validate values, configuration, options
         system = GitLab::CI::Lint::System.new
         actions = GitLab::CI::Lint::Actions.new

@@ -23,8 +23,10 @@ Gem::Specification.new do |spec|
   spec.bindir        = "bin"
   spec.require_paths = ["lib"]
   spec.license       = "MIT"
-  spec.add_development_dependency "httparty", "~> 0.18.0"
-  spec.add_development_dependency "OptionParser", "~> 0.5.1"
-  spec.add_development_dependency "yaml", "~> 0.1.0"
-  spec.add_development_dependency "colorize", "~> 0.8.1"
+  spec.add_dependency  "httparty", "~> 0.18.0"
+  spec.add_dependency  "OptionParser", "~> 0.5.1"
+  spec.add_dependency  "yaml", "~> 0.1.0"
+  spec.add_dependency  "colorize", "~> 0.8.1"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "rspec", "~> 3.4"
 end

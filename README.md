@@ -53,15 +53,30 @@
   <a href="#how-to-contribute">How to contribute</a>
 </p>
 
-## Getting Started
+## ▶️ Getting Started
 
-To use this repository you need to make a **git clone**:
+Starting with **git clone**:
 
 ```bash
 git clone --depth 1 https://github.com/lpmatos/gitlab-ci-lint.git -b master
 ```
 
-This will give access on your **local machine** to this project.
+This will give access on your local machine to this project.
+
+## ☕ Buy me a coffee
+
+Pull requests are welcome. If you'd like to support the work and buy me a ☕, I greatly appreciate it!
+
+<a href="https://www.buymeacoffee.com/EatdMck" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 100px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
+## 🚏 Pre-requisites
+
+To this project you yeed:
+
+- Ruby.
+- Docker.
+- Docker Compose.
+- Install all Dependencies.
 
 ## Gem Steps
 
@@ -130,6 +145,10 @@ Down all services and delete all images.
 docker-compose down --rmi all
 ```
 
+## 📣 Usage
+
+<kbd>gitlab_ci_lint --help</kbd> - Helper
+
 ## 🎒 How to contribute
 
 1. Make a **Fork**.
@@ -185,7 +204,7 @@ Hey!! If you like this project or if you find some bugs feel free to contact me 
   <tr>
 </table>
 
-## ✳️ Project Status
+## Project Status
 
 * 🔛 In production
 

@@ -43,6 +43,7 @@ variables:
 # =============================================================================
 
 job:merge:
+  stage: merge
   script:
     - echo "Check Project Structure."
   only:

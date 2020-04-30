@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.platform       = Gem::Platform::RUBY
   spec.authors        = ["Lucca Pessoa da Silva Matos"]
   spec.email          = "luccapsm@gmail.com"
-  spec.summary        = %q{Validate your gitlab-ci.yml files}
+  spec.summary        = %q{Validate your gitlab-ci.yml file}
   spec.description    = "Gitlab CI Lint"
   spec.homepage       = "https://github.com/lpmatos/gitlab-ci-lint"
   spec.metadata["homepage_uri"] = spec.homepage
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   spec.bindir        = "bin"
   spec.require_paths = ["lib"]
-  spec.license       = 'MIT'
+  spec.license       = "MIT"
   spec.add_development_dependency "httparty", "~> 0.18.0"
   spec.add_development_dependency "OptionParser", "~> 0.5.1"
   spec.add_development_dependency "yaml", "~> 0.1.0"

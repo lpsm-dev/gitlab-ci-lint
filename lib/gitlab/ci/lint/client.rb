@@ -9,7 +9,7 @@ module GitLab
         include HTTParty
 
         def initialize
-          @headers = { "Content-Type" => "application/json" }
+          @headers = { "Content-Type" => "application/json", "Private-Token" => "uNNACNQdxg1iSnieM2nG" }
         end
 
         def post url, content

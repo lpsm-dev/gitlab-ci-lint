@@ -8,6 +8,13 @@ module GitLab
         attr_reader :file
         def initialize file
           @file = file
+          validate!
+        end
+
+        def validate!
+          unless @file.chars.last(4).join == ".yml" or @file.chars.last(5).join == ".yaml"
+            raise ArgumentError.new("We need a YML File...")
+          end
         end
 
         def get_content

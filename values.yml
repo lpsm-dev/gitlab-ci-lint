@@ -4,6 +4,7 @@
 
 ---
 gitlab:
+  host: "https://gitlab.com/api"
   endpoint: "https://gitlab.com/api/v4/ci/lint"
   token: "9q41a8mmjAs4zjxmY6sm"
   file: ".gitlab-ci.yml"

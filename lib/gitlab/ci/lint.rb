@@ -4,11 +4,11 @@ module Gitlab
       require File.expand_path("lint/yml", File.dirname(__FILE__))
       require File.expand_path("lint/log", File.dirname(__FILE__))
       require File.expand_path("lint/system", File.dirname(__FILE__))
-      require File.expand_path("lint/client", File.dirname(__FILE__))
+      require File.expand_path("lint/actions", File.dirname(__FILE__))
 
       def self.validate values, configuration, options
         system = GitLab::CI::Lint::System.new
-        client = GitLab::CI::Lint::Client.new
+        actions = GitLab::CI::Lint::Actions.new
 
         system.file_exist?(values, "Error: You must specify the values.yml file")
 
@@ -31,16 +31,9 @@ module Gitlab
             options["file"] : ((!gitlab["file"].to_s.empty? && !gitlab["file"].nil?) ?
             gitlab["file"] : configuration.gitlab_ci_file)
 
-        logger.info("Starting - 1.0.0...")
+        logger.info("Starting GitLab CI YML Validation...")
 
-        result = client.get_gitlab_ci_lint(gitlab_endpoint, gitlab_ci_file)
-
-        if result["status"] == "valid"
-          puts "\nYour GitLab CI File is Okay: #{result}".colorize(:green)
-        else
-          puts "\nYour GitLab CI File is Invalid. Information:\n".colorize(:red)
-          puts result["errors"]
-        end
+        actions.validate_gitlab_ci_yml(gitlab_endpoint, gitlab_ci_file)
 
         return 0
       end

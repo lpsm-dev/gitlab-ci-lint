@@ -19,6 +19,7 @@ module GitLab
         def self.colorize(message, color="default", backgroud_color="default")
           return "\033[#{BACKGROUD_COLORS[backgroud_color]};#{COLORS[color]}m#{message}\033[0m"
         end
+
       end
     end
   end

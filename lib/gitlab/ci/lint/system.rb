@@ -15,6 +15,7 @@ module GitLab
             return 1
           end
         end
+
       end
     end
   end

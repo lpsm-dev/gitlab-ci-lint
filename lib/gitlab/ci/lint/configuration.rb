@@ -21,6 +21,7 @@ module GitLab
             "log_file" => @log_file
           }
         end
+
       end
     end
   end

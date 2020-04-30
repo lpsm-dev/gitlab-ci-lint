@@ -63,6 +63,7 @@ module GitLab
           puts string
           exit
         end
+
       end
     end
   end

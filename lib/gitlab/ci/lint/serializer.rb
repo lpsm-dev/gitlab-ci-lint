@@ -8,6 +8,7 @@ module GitLab
           @content = content
           @sucess_message = "Your GitLab CI File is Okay.".colorize(:green)
           @failure_message = "Your GitLab CI File is Invalid.".colorize(:red)
+          @serialize = serialize
         end
 
         def success
@@ -16,8 +17,8 @@ Result: #{@sucess_message}
 
 Information:
 
-* Status: #{@content["status"]}
-* Erros: #{@content["errors"]}
+* Status: #{@serialize[:status]}
+* Erros: #{@serialize[:errors]}
 
 Yeaaaah!!!! Congrats!!!!
           """
@@ -29,8 +30,8 @@ Result: #{@failure_message}
 
 #{"Information".colorize(:yellow)}
 
-* Status: #{@content["status"].colorize(:red)}
-* Erros: #{@content["errors"].to_s.colorize(:red)}
+* Status: #{@serialize[:status].colorize(:red)}
+* Erros: #{@serialize[:errors].to_s.colorize(:red)}
 
 Baaaaaad GitLab CI! Fuck man, you're a idiot...
           """
@@ -40,6 +41,14 @@ Baaaaaad GitLab CI! Fuck man, you're a idiot...
           end
           puts
         end
+
+        def serialize
+          {
+            :status => @content["status"],
+            :error => @content["errors"]
+          }
+        end
+
       end
     end
   end

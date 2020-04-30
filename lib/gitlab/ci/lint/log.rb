@@ -47,6 +47,7 @@ module GitLab
         def warn message
           @logger.warn(message)
         end
+
       end
     end
   end

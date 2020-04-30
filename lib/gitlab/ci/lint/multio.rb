@@ -13,6 +13,7 @@ module GitLab
         def close
           @targets.each(&:close)
         end
+
       end
     end
   end

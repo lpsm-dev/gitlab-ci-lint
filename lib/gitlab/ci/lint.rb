@@ -42,7 +42,7 @@ module Gitlab
             options["file"] : ((!gitlab["file"].to_s.empty? && !gitlab["file"].nil?) ?
             gitlab["file"] : configuration.gitlab_ci_file)
 
-        logger.info("Starting GitLab CI YML Validation...")
+        logger.info("Starting GitLab CI YML Validation in #{gitlab_ci_file}...")
 
         headers = gitlab_token ? { "Content-Type" => "application/json", "Private-Token" => gitlab_token } : { "Content-Type" => "application/json" }
 

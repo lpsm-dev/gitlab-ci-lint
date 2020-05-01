@@ -14,12 +14,12 @@ module GitLab
         end
 
         def validate!
-          # Check that config_file is defined
+          # Check that file is defined
           raise NotDefinedError unless @file
           # Check if is a YML extesion
-          unless @file.chars.last(4).join == ".yml" or @file.chars.last(5).join == ".yaml"
-            raise ArgumentError.new("We need a YML File...")
-          end
+          raise ArgumentError unless @file.chars.last(4).join == ".yml" or @file.chars.last(5).join == ".yaml"
+          # Check that the config file is exist?
+          raise FileNotFoundException unless ::File.exist?(@file)
           # Check that the config file is readable?
           raise NotReadableError unless ::File.readable?(@file)
         end

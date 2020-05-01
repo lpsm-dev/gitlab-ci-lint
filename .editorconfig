@@ -13,5 +13,10 @@ charset = utf-8
 [*.yaml,*.yml]
 indent_size = 2
 
+[**.rb]
+indent_size = 2
+indent_style = spaces
+insert_final_newline = true
+
 [CHANGELOG.md]
 indent_size = false

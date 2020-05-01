@@ -3,6 +3,7 @@ Gemfile.lock
 .dockerignore
 .editorconfig
 .gitignore
+.rspec
 .rspec_status
 docker-compose.yml
 Dockerfile
@@ -10,3 +11,8 @@ file.log
 *.gem
 LICENSE
 *.md
+.git
+.idea
+.vscode
+LICENSE
+Makefile

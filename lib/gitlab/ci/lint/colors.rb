@@ -1,7 +1,9 @@
 module GitLab
   module CI
     module Lint
+
       class Colors
+
         COLORS = {"default" => "38", "black" => "30", "red" => "31",
           "green" => "32", "brown" => "33", "blue" => "34", "purple" => "35",
           "cyan" => "36", "gray" => "37", "dark gray" => "1;30",

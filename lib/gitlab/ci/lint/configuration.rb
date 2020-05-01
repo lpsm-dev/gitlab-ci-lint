@@ -1,7 +1,9 @@
 module GitLab
   module CI
     module Lint
+
       class Configuration
+
         attr_reader :gitlab_endpoint, :gitlab_token, :gitlab_ci_file,
                     :timeout, :values, :log_file
         def initialize

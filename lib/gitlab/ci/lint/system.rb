@@ -1,7 +1,9 @@
 module GitLab
   module CI
     module Lint
+
       class System
+
         def file_exist? file, message
           unless file
             $stderr.puts("#{message}")

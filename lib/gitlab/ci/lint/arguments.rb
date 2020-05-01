@@ -5,7 +5,9 @@ require "gitlab/ci/lint/version"
 module GitLab
   module CI
     module Lint
+
       class Arguments
+
         attr_reader :program_name
 
         def initialize

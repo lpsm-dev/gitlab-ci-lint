@@ -1,7 +1,9 @@
 module GitLab
   module CI
     module Lint
+
       class MultiIO
+
         def initialize(*targets)
           @targets = targets
         end

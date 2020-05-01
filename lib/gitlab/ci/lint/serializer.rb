@@ -1,6 +1,7 @@
 module GitLab
   module CI
     module Lint
+
       class Serializer
         attr_reader :content
 

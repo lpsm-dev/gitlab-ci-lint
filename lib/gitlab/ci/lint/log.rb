@@ -6,9 +6,12 @@ require "gitlab/ci/lint/colors.rb"
 module GitLab
   module CI
     module Lint
+
       class Log < GitLab::CI::Lint::Colors
+
         include Singleton
         attr_accessor :logger
+
         def initialize log_file="./file.log"
           @logger = Logger.new GitLab::CI::Lint::MultiIO.new(STDOUT,
             File.open(File.exist?(log_file) ? log_file : "./file.log", "a"))

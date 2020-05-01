@@ -2,13 +2,16 @@ require "gitlab/ci/lint/yml"
 require "gitlab/ci/lint/log"
 require "gitlab/ci/lint/system"
 require "gitlab/ci/lint/actions"
+require "gitlab/ci/lint/configuration"
 
 module Gitlab
   module Ci
     module Lint
+
       def self.validate values, configuration, options
         system = GitLab::CI::Lint::System.new
         actions = GitLab::CI::Lint::Actions.new
+        configuration = configuration ? configuration : GitLab::CI::Lint::Configuration.new
 
         system.file_exist?(values, "Error: You must specify the values.yml file")
 

@@ -5,7 +5,9 @@ require "gitlab/ci/lint/yml.rb"
 module GitLab
   module CI
     module Lint
+
       class Client
+
         include HTTParty
 
         def post url, content, headers={ "Content-Type" => "application/json"}, timeout=10

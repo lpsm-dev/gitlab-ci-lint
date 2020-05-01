@@ -4,17 +4,24 @@ require "json"
 module GitLab
   module CI
     module Lint
+
       class YMLReader
         attr_reader :file
+
         def initialize file
-          @file = file
+          @file = File.join(File.dirname(__FILE__), file)
           validate!
         end
 
         def validate!
+          # Check that config_file is defined
+          raise NotDefinedError unless @file
+          # Check if is a YML extesion
           unless @file.chars.last(4).join == ".yml" or @file.chars.last(5).join == ".yaml"
             raise ArgumentError.new("We need a YML File...")
           end
+          # Check that the config file is readable?
+          raise NotReadableError unless ::File.readable?(@file)
         end
 
         def get_content

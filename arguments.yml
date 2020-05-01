@@ -1,0 +1,12 @@
+arguments:
+  - help
+  - endpoint
+  - token
+  - file
+  - directory
+  - timeout
+  - no-color
+  - values
+  - log
+  - verbose
+  - version
